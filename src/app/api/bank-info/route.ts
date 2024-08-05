@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 		return NextResponse.json({ message: "Bank Details Updated!" }, { status: 201 });
 	} catch (err) {
 		return NextResponse.json(
-			{ message: "An error occurred", err },
+			{ message: "An error occurred in bank info update" },
 			{ status: 400 }
 		);
 	}

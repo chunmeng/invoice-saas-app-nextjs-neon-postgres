@@ -10,7 +10,7 @@ interface Invoice {
     id?: string,
     created_at?: string,
     user_id:  string,
-    customer_id: number,
+    customer_id: string,
     title: string,
     items: string,
     total_amount: number,

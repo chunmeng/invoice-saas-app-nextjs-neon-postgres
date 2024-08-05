@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS "customers" (
 CREATE TABLE IF NOT EXISTS "invoices" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"owner_id" text NOT NULL,
-	"customer_id" integer NOT NULL,
+	"customer_id" text NOT NULL,
 	"title" text NOT NULL,
 	"items" text NOT NULL,
 	"created_at" timestamp DEFAULT now(),

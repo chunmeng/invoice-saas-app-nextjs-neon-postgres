@@ -14,7 +14,7 @@ export default function Dashboard() {
 	const [itemCost, setItemCost] = useState<number>(1);
 	const [itemQuantity, setItemQuantity] = useState<number>(1);
 	const [itemName, setItemName] = useState<string>("");
-	const [customers, setCustomers] = useState([]);
+	const [customers, setCustomers] = useState<Customer[]>([]);
 	const [bankInfoExists, setBankInfoExists] = useState<boolean>(false);
 	const router = useRouter();
 
@@ -48,6 +48,13 @@ export default function Dashboard() {
 			}
 		}
 	}, [fetchCustomers, user, fetchBankInfo, bankInfoExists]);
+
+	useEffect(() => {
+		// Automatically default a customer if there's more than one entry
+		if (customers.length >= 1) {
+		  setCustomer(customers[0].name);
+		}
+	  }, [customers]);
 
 	const hamdleAddItem = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -102,7 +109,7 @@ export default function Dashboard() {
 
 	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!customer || !invoiceTitle || !itemList.length || itemName) {
+		if (!customer || !invoiceTitle || !itemList.length) {
 			alert("Please fill all fields");
 			return;
 		}
@@ -137,6 +144,7 @@ export default function Dashboard() {
 						<h2 className='font-bold text-2xl mb-3'>Add new invoice</h2>
 
 						<form className='w-full flex flex-col' onSubmit={handleFormSubmit}>
+							{/* customer.name is used as option value */}
 							<label htmlFor='customer'>Customer</label>
 							{customers.length > 0 ? (
 								<select
@@ -145,9 +153,9 @@ export default function Dashboard() {
 									value={customer}
 									onChange={(e) => setCustomer(e.target.value)}
 								>
-									{customers.map((customer: any) => (
-										<option key={customer.id} value={customer.name}>
-											{customer.name}
+									{customers.map((c: any) => (
+										<option key={c.id} value={c.name}>
+											{c.name}
 										</option>
 									))}
 								</select>
